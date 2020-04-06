@@ -5,18 +5,45 @@ if(NOT EXISTS "${manifest}")
 endif()
 
 # Delete all files in install manifest
-file(STRINGS "${manifest}" files)
+file(STRINGS "${manifest}" installedFiles)
 
-message("Removing files:")
-foreach(file ${files})
-    message(" - ${file}")
+foreach(file ${installedFiles})
+    if(EXISTS "${file}")
+        exec_program("${CMAKE_COMMAND}" ARGS "-E remove ${file}"
+            OUTPUT_VARIABLE stdout
+            RETURN_VALUE result
+        )
+
+        if("${result}" STREQUAL 0)
+            message("Removed file: ${file}")
+        else()
+            message("Failed to remove file: ${file}")
+        endif()
+    else()
+        message("${file} does not exist")
+    endif()
 endforeach()
 
-file(REMOVE ${files})
-
 # Delete package-specific directories
-file(REMOVE_RECURSE "@CMAKE_INSTALL_PREFIX@/lib/cmake/@install_package_PACKAGE@")
+function(remove_dir dir)
+    if(EXISTS "${dir}")
+        exec_program("${CMAKE_COMMAND}" ARGS "-E remove_directory ${dir}"
+            OUTPUT_VARIABLE stdout
+            RETURN_VALUE result
+        )
 
+        if("${result}" STREQUAL 0)
+            message("Removed dir: ${dir}")
+        else()
+            message("Failed to remove dir: ${dir}")
+        endif()
+    endif()
+endfunction()
+
+# Delete cmake directory
+remove_dir("@CMAKE_INSTALL_PREFIX@/lib/cmake/@install_package_PACKAGE@")
+
+# Delete include directories
 foreach(includeDir @install_package_INCLUDE_DIRS@)
-    file(REMOVE_RECURSE "@CMAKE_INSTALL_PREFIX@/${includeDir}")
+    remove_dir("@CMAKE_INSTALL_PREFIX@/${includeDir}")
 endforeach()
