@@ -27,3 +27,10 @@ install_package(
 
 # Add tests and apps that depend on this library
 add_subdirectory(apps)
+
+# CPack settings
+set(CPACK_PACKAGE_CONTACT "k")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+include(CPack)
