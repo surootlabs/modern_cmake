@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.5...3.10)
-project(foo VERSION 1.0.0)
+project(calculator VERSION 1.0.0)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-set(package_name foo)
+set(package_name calculator)
 
 # Create targets and set properties
-add_library(${PROJECT_NAME} "src/foo.cpp")
+add_library(${PROJECT_NAME} "src/Calculator.cpp")
 add_library(${package_name}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME} 

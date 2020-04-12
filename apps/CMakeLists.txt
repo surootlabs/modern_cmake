@@ -1,4 +1,4 @@
 add_executable(app app.cpp)
 
-target_link_libraries(app PRIVATE foo::foo)
+target_link_libraries(app PRIVATE calculator::calculator)
 
