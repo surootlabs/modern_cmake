@@ -1,17 +1,17 @@
 #include <calculator/Calculator.h>
 
-double Calculator::add(double a, double b) {
+int Calculator::add(int a, int b) {
     return a + b;
 }
 
-double Calculator::subtract(double a, double b) {
+int Calculator::subtract(int a, int b) {
     return a - b;
 }
 
-double Calculator::multiply(double a, double b) {
+int Calculator::multiply(int a, int b) {
     return a * b;
 }
 
-double Calculator::divide(double a, double b) {
+int Calculator::divide(int a, int b) {
     return a / b;
 }
