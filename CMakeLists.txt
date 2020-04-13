@@ -25,8 +25,18 @@ install_package(
     INCLUDE_DIRS include/${PROJECT_NAME}
 )
 
-# Add tests and apps that depend on this library
+# Add apps that depend on this library
 add_subdirectory(apps)
+
+# Add tests
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+
+    if(BUILD_TESTING)
+        add_subdirectory(extern/googletest)
+        add_subdirectory(tests)
+    endif()
+endif()
 
 # CPack settings
 set(CPACK_PACKAGE_CONTACT "k")
